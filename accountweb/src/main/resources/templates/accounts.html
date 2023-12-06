@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" data-th-replace="~{fragments/skeleton::layout('accounts', ~{::content_fragment}, 'Accounts')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Accounts</title>
+</head>
+<body>
+
+ <div data-th-fragment="content_fragment">
+     <div class="vertically divided grid">
+         <form method="post"
+               data-th-classappend="${#fields.hasAnyErrors() ? 'error' : '' }"
+               data-th-action="@{/accounts}"
+               data-th-object="${createAccountDto}"
+         >
+             <h2 class="ui top attached header">Create New Account</h2>
+             <div class="ui attached segment three column row">
+                 <div class="ui input column" data-th-classappend="${#fields.hasErrors('customerId') ? 'error' : ''}">
+                     <input type="text" placeholder="Customer ID..." data-th-field="*{customerId}">
+                 </div>
+                 <div class="ui input column" data-th-classappend="${#fields.hasErrors('initialCredit') ? 'error' : ''}">
+                     <input type="text" placeholder="Initial Credit..." data-th-field="*{initialCredit}">
+                 </div>
+                 <div class="ui input column">
+                     <input type="submit" value="save" class="ui button">
+                 </div>
+             </div>
+         </form>
+     </div>
+     <div class="ui hidden divider"></div>
+     <div>
+         <h2 class="ui top attached header">Account Detail</h2>
+         <div class="ui attached segment">
+             <div class="vertically divided grid">
+                 <form class="ui form" method="get" data-th-action="@{/accounts/}">
+                     <h3>Search Account</h3>
+                     <div class="two column row">
+                         <div class="ui input column">
+                             <input type="text" placeholder="Account ID..." name="accountId" data-th-value="${accountId}">
+                         </div>
+                         <div class="ui input column">
+                             <input type="submit" value="search" class="ui button">
+                         </div>
+                     </div>
+                 </form>
+             </div>
+             <br>
+             <div data-th-if="${accountDetails}">
+                 <span class="ui medium text">Name : </span> <p data-th-text="${accountDetails.name}"></p>
+                 <span class="ui medium text">Surname : </span> <p data-th-text="${accountDetails.surname}"></p>
+                 <span class="ui medium text">Balance : </span> <p data-th-text="${accountDetails.balance}"></p>
+                 <br>
+                 <div data-th-unless="${#lists.isEmpty(accountDetails.transactionList)}">
+                     <span class="ui medium text">Transactions : </span>
+                     <table class="ui celled table">
+                         <thead>
+                             <tr>
+                                 <th>Transaction ID</th>
+                                 <th>Amount</th>
+                                 <th>Total Balance</th>
+                                 <th>Create At</th>
+                                 <th>Description</th>
+                             </tr>
+                         </thead>
+                         <tbody>
+                         <tr data-th-each="transaction: ${accountDetails.transactionList}">
+                             <td data-th-text="${transaction.transactionId}">Unknown</td>
+                             <td data-th-text="${transaction.amount}">Unknown</td>
+                             <td data-th-text="${transaction.balance}">Unknown</td>
+                             <td data-th-text="${#temporals.format(transaction.createdAt, 'dd-MM-yyyy HH:mm')}">Unknown</td>
+                             <td data-th-text="${transaction.description}">Unknown</td>
+                         </tr>
+                         </tbody>
+                     </table>
+                 </div>
+             </div>
+         </div>
+     </div>
+     <script data-th-if="${#fields.hasErrors('${createAccountDto.*}')}" data-th-inline="javascript">
+        var errors = [[${#fields.errors('createAccountDto.*')}]];
+        for (let i = 0; i < errors.length; i++) {
+            let msg = errors[i];
+            $.toast({
+                class: 'error',
+                displayTime: 0,
+                message: msg
+            });
+        }
+    </script>
+ </div>
+</body>
+</html>

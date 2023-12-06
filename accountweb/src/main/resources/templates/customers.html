@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" data-th-replace="~{fragments/skeleton::layout('customers', ~{::content_fragment}, 'Customers')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Customers</title>
+</head>
+<body>
+
+<div data-th-fragment="content_fragment">
+    <div class="vertically divided grid">
+        <form method="post"
+              data-th-classappend="${#fields.hasAnyErrors() ? 'error' : '' }"
+              data-th-action="@{/customers}"
+              data-th-object="${createCustomerDto}"
+        >
+            <h2 class="ui top attached header">Create New Customer</h2>
+            <div class="ui attached segment five column row">
+                <div class="ui input column" data-th-classappend="${#fields.hasErrors('name') ? 'error' : ''}">
+                    <input type="text" placeholder="Name..." data-th-field="*{name}">
+                </div>
+                <div class="ui input column" data-th-classappend="${#fields.hasErrors('surname') ? 'error' : ''}">
+                    <input type="text" placeholder="Surname..." data-th-field="*{surname}">
+                </div>
+                <div class="ui input column" data-th-classappend="${#fields.hasErrors('email') ? 'error' : ''}">
+                    <input type="text" placeholder="Email..." data-th-field="*{email}">
+                </div>
+                <div class="ui input column" data-th-classappend="${#fields.hasErrors('phone') ? 'error' : ''}">
+                    <input type="text" placeholder="Phone..." data-th-field="*{phone}">
+                </div>
+                <div class="ui input column">
+                    <input type="submit" value="save" class="ui button">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="ui hidden divider"></div>
+    <div>
+        <h2 class="ui top attached header">List all Customer</h2>
+        <div class="ui attached segment" data-th-unless="${#lists.isEmpty(customers)}">
+            <table class="ui celled table">
+                <thead>
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-th-each="customer: ${customers}">
+                    <td data-th-text="${customer.customerId}">Unknown</td>
+                    <td data-th-text="${customer.name}">Unknown</td>
+                    <td data-th-text="${customer.surname}">Unknown</td>
+                    <td data-th-text="${customer.email}">Unknown</td>
+                    <td data-th-text="${customer.phone}">Unknown</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script data-th-if="${#fields.hasErrors('${createCustomerDto.*}')}" data-th-inline="javascript">
+        var errors = [[${#fields.errors('createCustomerDto.*')}]];
+        for (let i = 0; i < errors.length; i++) {
+            let msg = errors[i];
+            $.toast({
+                class: 'error',
+                displayTime: 0,
+                message: msg
+            });
+        }
+    </script>
+</div>
+</body>
+</html>

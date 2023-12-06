@@ -1,0 +1,8 @@
+<div data-th-fragment="main_menu(activeMenu)">
+  <div>
+    <ul class="ui secondary pointing menu">
+      <li class="item" data-th-classappend="${(activeMenu eq 'accounts') ? 'active' : ''}"><a data-th-href="@{/accounts}">Accounts</a></li>
+      <li class="item" data-th-classappend="${(activeMenu eq 'customers') ? 'active' : ''}"><a data-th-href="@{/customers}" >Customers</a></li>
+    </ul>
+  </div>
+</div>

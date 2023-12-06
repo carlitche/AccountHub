@@ -1,0 +1,14 @@
+
+i
+java:S1128"GRemove this unused import 'com.accounthub.bankaccount.entity.Customer'.(¤Ñþîÿÿÿÿÿ8ÕŸÓâ¿1
+r
+java:S1128"URemove this unused import 'com.accounthub.bankaccount.repository.CustomerRepository'.(éÂú¥8ÖŸÓâ¿1
+d
+java:S1128"GRemove this unused import 'org.springframework.boot.CommandLineRunner'.(È—ÿÅ8ÖŸÓâ¿1
+y
+java:S1128"]Remove this unused import 'org.springframework.cloud.client.discovery.EnableDiscoveryClient'.(¬Ç­D8á†Ôã¿1
+e
+java:S1128	"HRemove this unused import 'org.springframework.context.annotation.Bean'.(‚î‰Þ8ÖŸÓâ¿1
+m
+java:S1128
+"KRemove this unused import 'org.springframework.context.annotation.Profile'.(ØÝ¥Ýøÿÿÿÿ8ÖŸÓâ¿1

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" data-th-fragment="layout(activeMenu, content, titles)">
+<head>
+    <meta charset="UTF-8">
+    <title>[[${titles}]]</title>
+    <div data-th-replace="~{fragments/css_js::include_header_files}"></div>
+</head>
+<body>
+<div class="ui hidden divider"></div>
+<div class="ui padded container segment">
+
+    <div data-th-replace="~{fragments/menu::main_menu(${activeMenu})}"></div>
+    <div class="ui hidden divider"></div>
+    <div data-th-insert="${content}"></div>
+
+</div>
+<script data-th-if="${errorMsg}" data-th-inline="javascript">
+
+    let msg = /*[[${errorMsg.message}]]*/'';
+
+    $.toast({
+        class: 'error',
+        message: msg
+    });
+</script>
+<script data-th-if="${toastMessage}" data-th-inline="javascript">
+
+    let msg = /*[[${toastMessage}]]*/'';
+
+    $.toast({
+        class: 'success',
+        message: msg
+    });
+</script>
+</body>
+</html>
